@@ -1,0 +1,24 @@
+- hosts: new
+  tasks:
+
+  - file:
+      state: directory
+      path: "/dvd1"
+
+  - mount:
+      src: "/dev/cdrom"
+      path: "/dvd1"
+      state: mounted
+      fstype: "iso9660"
+
+  - yum_repository:
+      name: "RHEL-DVD-AppStream"
+      description: "Ansible Created Repository AppStream"
+      baseurl: "/dvd1/AppStream"
+      gpgcheck: no
+
+  - yum_repository:
+      name: "RHEL-DVD-BaseOS"
+      description: "Ansible Created Repository BaseOS"
+      baseurl: "/dvd1/BaseOS"
+      gpgcheck: no
